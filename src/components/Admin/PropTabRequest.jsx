@@ -1,144 +1,119 @@
-
-
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import './ViewProducts.css';
 
-function PropTabRequest() {
-  
-  const [inputData, setInputData] = useState('');
-  const [proptabData, setPropTabData] = useState({
-    propname: '',
-    propsize: '',
-    propaddress: '',
-    amenities: '',
-    imageUrl: "",
-    request: 'requested', 
+function Admin() {
+  const [records, setRecords] = useState([]);
+  const [inputData, setInputData] = useState({
+    fetchId: ""
   });
+  const [sellerDetails, setSellerDetails] = useState(null);
 
-  
-  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
-  
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setPropTabData({ ...proptabData, [name]: value });
+  const fetchIdFromBackend = () => {
+    axios.get("http://localhost:8043/fetchId")
+      .then((res) => {
+        setInputData({ ...inputData, fetchId: res.data.id });
+        fetchSellerDetails(res.data.id);
+      })
+      .catch((err) => console.log(err));
   };
 
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post('http://localhost:8010/seller/proptab', proptabData);
-      setMessage('Property added successfully!');
-      // Reset form data
-      setPropTabData({
-    propname: '',
-    propsize: '',
-    propaddress: '',
-    amenities: '',
-    imageUrl: "",
-    request: 'requested', // Resetting request field to default
-      });
-    } catch (error) {
-      setMessage('Error adding Property. Please try again.');
-      console.error('Error adding property:', error);
-    }
+  const fetchSellerDetails = (id) => {
+    axios.get(`http://localhost:8043/seller/${id}`)
+      .then((res) => {
+        setSellerDetails(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    axios.get("http://localhost:8043/products")
+      .then((res) => {
+        setRecords(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const handleAccept = () => {
+    alert("Accepted");
+    // Add your accept logic here
+  };
+
+  const handleReject = () => {
+    alert("Rejected");
+    // Add your reject logic here
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-xl font-semibold mb-4">Add New Property</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="propname">
-           Property Name: 
-          </label>
-          <input
-            type="text"
-            id="propname"
-            name="propname"
-            value={proptabData.propname}
-            onChange={handleInputChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
+    <div id="all">
+      <div
+        id="add2"
+        className="d-flex mt-0 mb-8 w-100 vh-98 justify-content-center align-items-center"
+      >
+        <div className="w-50 mt-4 border bg-danger p-5">
+          <form>
+            <h1>Scheduling Appointments</h1>
+            <br />
+            <div>
+              <button type="button" onClick={fetchIdFromBackend} className="btn btn-light">
+                Fetch ID
+              </button>
+              <input
+                type="text"
+                name="fetchId"
+                className="form-control"
+                placeholder='fetch id'
+                value={inputData.fetchId}
+                readOnly
+              />
+            </div>
+            <br />
+            {sellerDetails && (
+              <div>
+                <h3>Seller Details</h3>
+                <p><strong>ID:</strong> {sellerDetails.id}</p>
+                <p><strong>Land Name:</strong> {sellerDetails.landname}</p>
+                <p><strong>Land Size:</strong> {sellerDetails.landsize}</p>
+                <p><strong>Phone Number:</strong> {sellerDetails.phoneNumber}</p>
+                <p><strong>Email ID:</strong> {sellerDetails.emailId}</p>
+                <p><strong>Amenities:</strong> {sellerDetails.amenities}</p>
+                <img src={sellerDetails.imageUrl} alt="Seller Land" style={{ width: '100%', height: 'auto' }} />
+              </div>
+            )}
+            <br />
+            <div>
+              <button type="button" onClick={handleAccept} className="btn btn-light">
+                Accept
+              </button>
+              <button type="button" onClick={handleReject} className="btn btn-light">
+                Reject
+              </button>
+            </div>
+          </form>
         </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="propsize">
-           Property Size
-          </label>
-          <input
-            type="text"
-            id="propsize"
-            name="propsize"
-            value={proptabData.propsize}
-            onChange={handleInputChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="propaddress">
-           Property Address
-          </label>
-          <input
-            type="text"
-            id="propaddress"
-            name="propaddress"
-            value={proptabData.propaddress}
-            onChange={handleInputChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amenities">
-            Amenities
-          </label>
-          <input
-            type="text"
-            id="amenities"
-            name="amenities"
-            value={proptabData.amenities}
-            onChange={handleInputChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-
-        <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="imageUrl">Image URL :</label>
-            <input
-              type="text"
-              name="imageUrl"
-              value={proptabData.imageUrl}
-              className="form-control"
-              placeholder='enter image url'
-              onChange={(e) =>
-                setInputData({ ...inputData, imageUrl: e.target.value })
-              }
-            />
-          </div>
-
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Add Property
-        </button>
-      </form>
-
-      {message && (
-        <div className="mt-4 p-2 text-center">
-          <p className="text-green-600">{message}</p>
-        </div>
-      )}
+      </div>
+      <div className="w-75 mx-auto mt-5">
+        <h2>Product List</h2>
+        <table className="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            {records.map((record) => (
+              <tr key={record.fetchId}>
+                <td>{record.fetchId}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
 
-export default PropTabRequest;
+export default Admin;

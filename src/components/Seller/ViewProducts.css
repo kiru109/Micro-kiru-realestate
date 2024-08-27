@@ -1,0 +1,51 @@
+table{
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+h1
+{
+    font-family: Arial, sans-serif;
+    font-weight: 800;
+    font-size:xx-large;
+}
+
+#submit
+{
+    margin-left: 250px;
+    margin-top: 20px;
+}
+
+#salbutton
+{
+    margin-top: -38px;
+}
+
+#addbutton
+{
+    margin-top: -90px;
+    margin-left: 1080px;
+}
+
+#customerbutton
+{
+    
+    margin-top: 90px;
+    margin-right: 1080px;
+}
+
+#delbutton
+{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    color: red;
+}
+
+#updbutton
+{
+    margin-top: 0px;
+    margin-left: 0px;
+    color: green;
+}

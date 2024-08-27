@@ -7,7 +7,8 @@ import { Bar, Pie, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import { motion } from 'framer-motion';
 import BuyTabManagement from './BuyTabManagement';
-
+import { FaPlus, FaEdit, FaEye, FaSignOutAlt } from 'react-icons/fa';
+import Appointmentform from './Appointmentform';
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
@@ -20,28 +21,34 @@ const Buyerdashboard = () => {
         return <DashboardOverview />;
       case 'buytab':
         return <BuyTabManagement />;
+        case 'Appointmentform':
+          return <Appointmentform />;
       default:
         return <DashboardOverview />;
     }
   };
-
+  const handleLogout = async () => {
+    sessionStorage.clear();
+  }
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-blue-800 text-white">
+    <div className="min-h-screen bg-gradient-to-r from-red-500 to-red-200 text-white">
       {/* Top Navbar */}
-      <nav className="bg-blue-900 text-white p-4 flex items-center shadow-lg">
+      <nav className="bg-red-600 text-white p-4 flex items-center shadow-lg">
         <div className="text-3xl font-bold">Buyer</div>
         <div className="ml-auto flex space-x-6">
           <div className="flex items-center cursor-pointer hover:text-gray-300" onClick={() => setActivePage('dashboard')}>
             <FaChartLine className="mr-2" /> Dashboard
           </div>
           <div className="flex items-center cursor-pointer hover:text-gray-300" onClick={() => setActivePage('buytab')}>
-            <FaTasks className="mr-2" /> BuyTab
+            <FaTasks className="mr-2" /> View Property
           </div>
           <div className="flex items-center cursor-pointer hover:text-gray-300">
             <FaBell className="mr-2" /> Notifications
           </div>
-          <div className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center transition">
-            <FaUsersCog className="mr-2" /> Logout
+          <div>
+            <a href="/" className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center transition" onClick={handleLogout}>
+              <FaSignOutAlt className="mr-2" /> Logout
+            </a>
           </div>
         </div>
       </nav>

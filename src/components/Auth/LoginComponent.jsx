@@ -20,13 +20,15 @@ const LoginComponent = () => {
         try {
             
 
-            const HARD_CODED_USER = 'seller';
-            const HARD_CODED_PASSWORD = '1234';
-            if (userName === HARD_CODED_USER && password === HARD_CODED_PASSWORD) {
+            const HARD_CODED_USER = "seller";
+            const HARD_CODED_PASSWORD = "1234";
+            // console.log(userName,password)
+            
+            if (userName === "seller" && password === "1234") {
                 sessionStorage.setItem('sellerid', 1);
                 sessionStorage.setItem('seller',"seller");
                 sessionStorage.setItem('Login', "Yes");
-                navigate('/Sellerdashboard');
+                navigate('/sellerdashboard');
                 return;
             }
 

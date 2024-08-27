@@ -16,13 +16,14 @@ import Appointmentdashboard from './components/Appointment/Appointmentdashboard'
 import EditAppointmentTab from './components/Appointment/EditAppointmentTab';
 import ViewAppointmentTab from './components/Appointment/ViewAppointmentTab';
 import Buyerdashboard from './components/Buyer/Buyerdashboard';
+import Appointmentform from './components/Buyer/Appointmentform';
 import BuyTabManagement from './components/Buyer/BuyTabManagement';
 import EditCompanyName from './components/Edit/EditCompanyName';
 import EditFeedback from './components/Edit/EditFeedback';
-import AdminManagement from './components/Seller/AdminManagement';
-import AppointmentManagement from './components/Seller/AppointmentManagement';
-import BuyerManagement from './components/Seller/BuyerManagement';
-import SellerAllocation from './components/Seller/SellerAllocation';
+import AdminManagement from './components/Admin/AdminManagement';
+import AppointmentManagement from './components/Admin/AppointmentManagement';
+import BuyerManagement from './components/Admin/BuyerManagement';
+// import SellerAllocation from './components/Seller/SellerAllocation';
 import Sellerdashboard from './components/Seller/Sellerdashboard';
 import SellerDashboardOverview from './components/Seller/SellerDashboardOverview';
 import SellerTab from './components/Seller/SellerTab';
@@ -47,7 +48,7 @@ function AppRouter() {
       <Route path="/AddAppointmentTab" element={<AddAppointmentTab/>}/>
       <Route path="/EditAppointmentTab/:id" element={<EditAppointmentTab/>}/>
       <Route path="/Appointmentdashboard" element={<Appointmentdashboard/>}/>
-      <Route path="/Sellerdashboard" element={<Sellerdashboard/>}/>
+      <Route path="/sellerdashboard" element={<Sellerdashboard/>}/>
       <Route path="/Buyerdashboard" element={<Buyerdashboard/>}/>
       <Route path="/Admindashboard" element={<Admindashboard/>}/>
       <Route path="/AddProperty" element={<AddProperty/>}/>

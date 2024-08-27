@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const Error404 = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-blue-900 text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-r from-red-500 to-red-200 text-white">
       <div className="text-center mb-8">
         <motion.h1
           initial={{ scale: 0 }}
@@ -52,9 +52,9 @@ const Error404 = () => {
         transition={{ delay: 1 }}
         className="mt-8"
       > */}
-        <a href="/" className="text-blue-400 hover:underline">
+       <center> <a href="/" className="text-red-900 hover:underline">
           Back to Home
-        </a>
+        </a></center>
       {/* </motion.div> */}
     </div>
   );
